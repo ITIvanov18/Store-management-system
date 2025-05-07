@@ -1,4 +1,4 @@
-package org.nbu;
+package com.nbu.Store_management_system;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
