@@ -1,4 +1,4 @@
-package com.nbu.Store_management_system;
+package org.nbu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
