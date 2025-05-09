@@ -26,9 +26,9 @@
 ## 💻 Description <a name="description"></a>
 
 <p align = "center">A Java-based web application for modeling and automating the loading and sale of goods in a retail store. <br>
-Powered by Spring Boot and Thymeleaf on the frontend; backed by a SQL Server database with Spring Data JPA (Hibernate)<br>
-for seamless object-relational mapping, and Gradle for build and testing. The app handles inventory, expiry-aware pricing, <br>
-cashier workflows, receipt serialization, and live store analytics. </p>
+Powered by Spring Boot and Thymeleaf on the frontend; backed by a MSSQL Server database with <br>
+Spring Data JPA (Hibernate & Jakarta EE) for seamless object-relational mapping, and Gradle for build and testing.<br>
+The app handles inventory, expiry-aware pricing, cashier workflows, receipt serialization, and store statistics. </p>
 
 <br>
 
@@ -38,6 +38,7 @@ cashier workflows, receipt serialization, and live store analytics. </p>
   <a href="https://www.jetbrains.com/idea/"><img src="https://img.icons8.com/color/96/intellij-idea.png" alt="IntelliJ Idea" width="60px"/></a>
   <a href="https://www.oracle.com/java/"><img src="https://img.icons8.com/color/96/java-coffee-cup-logo--v1.png" alt="Java 17" width="64px"/></a>
   <a href="https://spring.io/projects/spring-boot"><img src="https://img.icons8.com/color/96/spring-logo.png" alt="Spring Boot 3" width="55px"/></a> &nbsp
+  <a href="https://jakarta.ee/"><img src="https://downloads.marketplace.jetbrains.com/files/20207/724021/icon/default.svg" alt="Jakarta EE" width="55px"/></a> &nbsp
   <a href="https://hibernate.org/"><img src="https://icon.icepanel.io/Technology/svg/Hibernate.svg" alt="Hibernate / JPA" width="53px"/></a> &nbsp
   <a href="https://www.thymeleaf.org/"><img src="https://www.thymeleaf.org/images/thymeleaf.png" alt="Thymeleaf" width="55px"/></a> &nbsp
   <a href="https://gradle.org/"><img src="https://icon.icepanel.io/Technology/svg/Gradle.svg" alt="Gradle" width="64px"/></a>
@@ -80,7 +81,7 @@ cashier workflows, receipt serialization, and live store analytics. </p>
 ## 📥 How to deploy <a name="deployment"></a>
 <h3> <B>Clone the repository:</B> </h3>
 
-Paste this line of code in **your Terminal**:
+Paste this line of code in **your terminal**:
 <pre>git clone https://github.com/ITIvanov18/Store-management-system.git</pre>
 
 </div>
