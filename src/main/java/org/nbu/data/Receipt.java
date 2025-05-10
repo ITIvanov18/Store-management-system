@@ -20,7 +20,7 @@ public class Receipt {
     @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL)
     private List<SoldProduct> totalSoldProducts = new ArrayList<>();
 
-    private double totalAmount;
+    private double totalPrice;
 
     public int getId() {
         return id;
@@ -38,14 +38,6 @@ public class Receipt {
         this.receiptIssueDate = receiptIssueDate;
     }
 
-    public Cashier getCashier() {
-        return cashier;
-    }
-
-    public void setCashier(Cashier cashier) {
-        this.cashier = cashier;
-    }
-
     public List<SoldProduct> getTotalSoldProducts() {
         return totalSoldProducts;
     }
@@ -54,11 +46,17 @@ public class Receipt {
         this.totalSoldProducts = totalSoldProducts;
     }
 
-    public double getTotalAmount() {
-        return totalAmount;
+    public Cashier getCashier() {
+        return cashier;
     }
 
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
+    public void setCashier(Cashier cashier) {
+        this.cashier = cashier;
+    }
+
+    public double getTotalPrice() {
+        return totalSoldProducts.stream()
+                .mapToDouble(p -> p.getSellingPrice() * p.getQuantity())
+                .sum();
     }
 }
