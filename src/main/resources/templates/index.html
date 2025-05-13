@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Store Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body class="dashboard-body">
+
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="dashboard-card text-center p-5">
+        <h1 class="mb-5">Store Management System 🛒</h1>
+        <p class="lead mb-4">Изберете действие, за да продължите:</p>
+
+        <div class="d-flex flex-column flex-md-row flex-wrap justify-content-center gap-3 btn-container">
+            <a th:href="@{/store/add}" class="btn dashboard-btn">
+                <i class="fas fa-plus"></i> Създай нов магазин
+            </a>
+            <a th:href="@{/store/list}" class="btn dashboard-btn">
+                <i class="fas fa-store"></i> Виж всички магазини
+            </a>
+            <a th:href="@{/store/stats}" class="btn dashboard-btn">
+                <i class="fas fa-chart-line"></i> Статистика
+            </a>
+            <a href="/purchase/start" class="btn dashboard-btn">
+                <i class="fas fa-shopping-cart me-2"></i> Направи покупка
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

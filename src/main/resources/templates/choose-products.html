@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Избор на продукти</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        .product-card:hover {
+            transform: scale(1.02);
+        }
+        .product-quantity {
+            width: 60px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="container py-5">
+
+<h2 class="text-center mb-4">🧺 Избери продукти от <span th:text="${store.name}">Магазин</span></h2>
+
+<!-- Съобщение за грешка -->
+<div th:if="${error}" class="alert alert-danger text-center" role="alert" th:text="${error}">Грешка</div>
+
+<form th:action="@{'/purchase/store/' + ${store.id} + '/add-to-cart'}" method="post">
+    <div class="row g-4" th:each="product : ${products}">
+        <div class="col-md-4">
+            <div class="product-card">
+                <h5 th:text="${product.productName}">Име на продукт</h5>
+                <p><strong>Категория:</strong> <span th:text="${product.category}">FOOD</span></p>
+                <p><strong>Наличност:</strong> <span th:text="${product.quantity}">10</span></p>
+                <p><strong>Цена:</strong> <span th:text="${product.price}">1.99</span> лв.</p>
+
+                <div class="mb-2">
+                    <label>Количество:</label>
+                    <input type="number" name="quantities[__${product.id}__]" min="1" max="99"
+                           class="form-control product-quantity" placeholder="0">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-success btn-lg rounded-pill px-4">
+            <i class="fas fa-plus"></i> Добави в кошницата
+        </button>
+        <a th:href="@{'/purchase/store/' + ${store.id} + '/registers'}"
+           class="btn btn-primary btn-lg rounded-pill px-4 ms-3">
+            Към касите →
+        </a>
+    </div>
+</form>
+
+</body>
+</html>

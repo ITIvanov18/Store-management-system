@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${store.storeName}">Магазин</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/store.css}">
+</head>
+<body class="store-body">
+
+<div th:if="${error != null and !#strings.isEmpty(error)}"
+     class="alert alert-danger text-center mb-4" role="alert">
+    <i class="fas fa-exclamation-circle me-2"></i>
+    <span th:text="${error}">Грешка</span>
+</div>
+
+
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="store-card p-5 w-100">
+        <h2 class="mb-4 text-center">
+            <i class="fas fa-store me-2"></i>
+            <span th:text="${store.storeName}">Магазин</span>
+        </h2>
+
+        <!-- Продукти -->
+        <h4 class="mb-3">📦 Списък с продукти</h4>
+        <div class="table-responsive mb-4">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-light">
+                <tr>
+                    <th>Име</th>
+                    <th>Категория</th>
+                    <th>Количество</th>
+                    <th>Срок на годност</th>
+                    <th>Цена за продажба</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entry : ${productPrices}"
+                    th:if="${entry.key.expirationDate == null or entry.key.expirationDate > T(java.time.LocalDate).now()}">
+                    <td th:text="${entry.key.productName}"></td>
+                    <td th:text="${entry.key.category}"></td>
+                    <td th:text="${entry.key.quantity}"></td>
+                    <td th:text="${entry.key.expirationDate != null ? entry.key.expirationDate : '---'}"></td>
+                    <td th:text="${entry.value + ' лв.'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Касиери -->
+        <h4 class="mb-3">👤 Свободни касиери</h4>
+        <ul class="list-group mb-4">
+            <li class="list-group-item bg-transparent text-white d-flex justify-content-between"
+                th:each="cashier : ${availableCashiers}">
+                <span th:text="${cashier.cashierName}"></span>
+                <span th:text="${cashier.monthlySalary} + ' лв.'"></span>
+            </li>
+            <li class="list-group-item text-white" th:if="${availableCashiers.size() == 0}">
+                Няма свободни касиери.
+            </li>
+        </ul>
+
+        <!-- Действия -->
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a th:href="@{'/store/' + ${store.id} + '/stats'}" class="btn btn-info">
+                <i class="fas fa-chart-line"></i> Статистика
+            </a>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#productModal">
+                <i class="fas fa-plus"></i> Добави продукт
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cashierModal">
+                <i class="fas fa-user-plus"></i> Добави касиер
+            </button>
+            <a th:href="@{/store/list}" class="btn btn-outline-light">
+                <i class="fas fa-arrow-left"></i> Обратно към списъка
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: Добави продукт -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 shadow-sm">
+            <div class="modal-header">
+                <h5 class="modal-title">Добави нов продукт</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{'/store/' + ${store.id} + '/products/add'}" th:object="${product}" method="post">
+                    <input type="text" th:field="*{productName}" class="form-control mb-2"
+                           placeholder="Име на продукта" required>
+
+                    <input type="number" step="1" min="0" class="form-control mb-2"
+                           th:field="*{deliveryPrice}"
+                           th:value="${product.deliveryPrice != 0 ? product.deliveryPrice : null}"
+                           placeholder="Доставна цена">
+
+                    <input type="number" step = "1" min="0" class="form-control mb-2"
+                           th:field="*{quantity}"
+                           th:value="${product.quantity != 0 ? product.quantity : null}"
+                           placeholder="Количество">
+
+                    <select th:field="*{category}" class="form-control mb-2">
+                        <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}"></option>
+                    </select>
+
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" th:field="*{hasExpirationDate}" id="expCheck">
+                        <label class="form-check-label" for="expCheck">Има срок на годност</label>
+                    </div>
+
+                    <input type="date" class="form-control mb-3" th:field="*{expirationDate}">
+
+                    <button type="submit" class="btn btn-success w-100">Добави продукт</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: Добави касиер -->
+<div class="modal fade" id="cashierModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 shadow-sm">
+            <div class="modal-header">
+                <h5 class="modal-title">Добави касиер</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{'/store/' + ${store.id} + '/cashiers/add'}" th:object="${cashier}" method="post">
+                    <input type="text" th:field="*{cashierName}" class="form-control mb-2"
+                           placeholder="Име на касиера" required>
+
+                    <input type="number" step="1" min="0" class="form-control mb-3"
+                           th:field="*{monthlySalary}"
+                           th:value="${cashier.monthlySalary != 0 ? cashier.monthlySalary : null}"
+                           placeholder="Месечна заплата">
+
+                    <button type="submit" class="btn btn-primary w-100">Добави касиер</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/store.js}"></script>
+</body>
+</html>

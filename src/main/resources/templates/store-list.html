@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Списък с магазини</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/store-list.css}" href="/css/store-list.css">
+</head>
+<body class="storelist-body">
+
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="storelist-card w-100 p-4">
+        <h2 class="mb-4 text-center"><i class="fas fa-store me-2"></i>Списък с магазини</h2>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Име</th>
+                    <th>Действие</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="store : ${store}">
+                    <td th:text="${store.id}"></td>
+                    <td th:text="${store.storeName}"></td>
+                    <td>
+                        <a th:href="@{'/store/' + ${store.id}}" class="btn btn-sm btn-info">
+                            <i class="fas fa-eye"></i> Преглед
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <a th:href="@{/}" class="btn btn-outline-light">
+                <i class="fas fa-arrow-left"></i> Начало
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
