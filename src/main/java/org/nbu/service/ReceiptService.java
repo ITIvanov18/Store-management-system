@@ -31,4 +31,21 @@ public class ReceiptService {
                 .mapToDouble(Receipt::getTotalPrice)
                 .sum();
     }
+
+    public double getTotalTurnoverByStoreId(int storeId) {
+        return receiptRepository.findAll().stream()
+                .filter(r -> r.getCashier() != null &&
+                        r.getCashier().getStore() != null &&
+                        r.getCashier().getStore().getId() == storeId)
+                .mapToDouble(Receipt::getTotalPrice)
+                .sum();
+    }
+
+    public long countReceiptsByStoreId(int storeId) {
+        return receiptRepository.findAll().stream()
+                .filter(r -> r.getCashier() != null &&
+                        r.getCashier().getStore() != null &&
+                        r.getCashier().getStore().getId() == storeId)
+                .count();
+    }
 }

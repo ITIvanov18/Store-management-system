@@ -3,6 +3,7 @@ package org.nbu.service;
 import org.nbu.data.Product;
 import org.nbu.data.ProductCategoryEnum;
 import org.nbu.data.StoreSettings;
+import org.nbu.exceptions.InvalidProductCategoryException;
 import org.nbu.repository.ProductRepo;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,16 @@ import java.util.List;
 @Service
 public class ProductService {
     private final ProductRepo productRepository;
+
     public ProductService(ProductRepo productRepository) {
         this.productRepository = productRepository;
     }
 
     public void save(Product product) {
+        if (product.getCategory() == ProductCategoryEnum.NON_FOOD && product.isHasExpirationDate()) {
+            throw new InvalidProductCategoryException();
+        }
+
         productRepository.save(product);
     }
 
@@ -31,26 +37,37 @@ public class ProductService {
         return productRepository.findByStoreId(storeId);
     }
 
+
     public BigDecimal calculateSellingPrice(Product product, StoreSettings settings) {
-        BigDecimal markup;
-
-        if (product.getCategory() == ProductCategoryEnum.FOOD) {
-            markup = BigDecimal.valueOf(settings.getFoodMarkupPercentage()).divide(BigDecimal.valueOf(100));
-        } else {
-            markup = BigDecimal.valueOf(settings.getNonFoodMarkupPercentage()).divide(BigDecimal.valueOf(100));
-        }
-
+        // 1. Доставна цена
         BigDecimal deliveryPrice = BigDecimal.valueOf(product.getDeliveryPrice());
-        BigDecimal priceWithMarkup = deliveryPrice.add(deliveryPrice.multiply(markup));
 
-        if (product.isHasExpirationDate() && product.getExpirationDate() != null) {
+        // 2. Надценка: 10% от доставната цена
+        BigDecimal markup = deliveryPrice.multiply(BigDecimal.valueOf(0.10));
+
+        // 3. Цена с надценка
+        BigDecimal priceWithMarkup = deliveryPrice.add(markup);
+
+        // 4. ДДС: 20% от цена с надценка
+        BigDecimal vat = priceWithMarkup.multiply(BigDecimal.valueOf(0.20));
+
+        // 5. Крайна цена с ДДС
+        BigDecimal finalPrice = priceWithMarkup.add(vat);
+
+        // 6. Проверка за отстъпка (само за хранителни продукти с изтичащ срок)
+        if (product.getCategory() == ProductCategoryEnum.FOOD
+                && product.isHasExpirationDate()
+                && product.getExpirationDate() != null) {
+
             long daysToExpire = ChronoUnit.DAYS.between(LocalDate.now(), product.getExpirationDate());
-            if (daysToExpire >= 0 && daysToExpire <= settings.getDaysBeforeExpirationForDiscount()) {
-                BigDecimal discount = BigDecimal.valueOf(settings.getDiscountPercentage()).divide(BigDecimal.valueOf(100));
-                return priceWithMarkup.subtract(priceWithMarkup.multiply(discount)).setScale(2, RoundingMode.HALF_UP);
+
+            if (daysToExpire >= 0 && daysToExpire <= 5) {
+                // 30% отстъпка върху крайната цена, ако daysToExpire<=5
+                BigDecimal discount = finalPrice.multiply(BigDecimal.valueOf(0.30));
+                finalPrice = finalPrice.subtract(discount);
             }
         }
 
-        return priceWithMarkup.setScale(2, RoundingMode.HALF_UP);
+        return finalPrice.setScale(2, RoundingMode.HALF_UP);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/store/{storeId}/cashiers")
@@ -31,7 +32,9 @@ public class CashierController {
     public String addCashier(@PathVariable int storeId,
                              @ModelAttribute("cashier") @Valid Cashier cashier,
                              BindingResult result,
-                             Model model) {
+                             Model model,
+                             RedirectAttributes redirectAttributes) {
+
         Store store = storeService.findById(storeId);
 
         if (result.hasErrors()) {
@@ -39,8 +42,13 @@ public class CashierController {
             return "cashier-add";
         }
 
-        store.getCashiers().add(cashier);
-        storeService.save(store);
+        try {
+            store.getCashiers().add(cashier);
+            storeService.save(store);
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("error", "Грешка при запазване на касиера: " + e.getMessage());
+        }
+
         return "redirect:/store/" + storeId;
     }
 }
