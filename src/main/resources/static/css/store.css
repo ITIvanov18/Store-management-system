@@ -1,0 +1,49 @@
+.store-body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    margin: 0;
+}
+
+.store-card {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    max-width: 1000px;
+    color: #fff;
+}
+
+.form-check-label {
+    color: #000;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.list-group-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    font-size: 1.05rem;
+}
+
+.btn-info {
+    background-color: #00bcd4;
+    border: none;
+    color: #fff;
+}
+
+.btn-success {
+    background-color: #4caf50;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #2196f3;
+    border: none;
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}

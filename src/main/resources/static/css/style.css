@@ -1,0 +1,55 @@
+.dashboard-body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0d47a1, #00acc1);
+    color: #fff;
+}
+
+.dashboard-card {
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    min-width: 700px;
+    max-width: 800px;
+    width: 100%;
+    padding: 2rem;
+    margin-bottom: 10%;
+    box-sizing: border-box;
+}
+
+.dashboard-btn {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 240px;
+    white-space: nowrap;
+}
+
+.dashboard-btn i {
+    margin-right: 8px;
+}
+
+.dashboard-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+    color: #fff;
+}
+
+h1 {
+    font-size: 2.8em;
+}

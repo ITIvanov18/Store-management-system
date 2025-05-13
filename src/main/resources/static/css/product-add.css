@@ -1,0 +1,21 @@
+body {
+    background-color: #f6f9fc;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 650px;
+    margin-top: 40px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.form-control, .form-check-input {
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    width: 100%;
+}

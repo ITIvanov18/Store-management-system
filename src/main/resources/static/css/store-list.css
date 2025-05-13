@@ -1,0 +1,37 @@
+.storelist-body {
+    background: linear-gradient(135deg, #004e92, #000428);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    margin: 0;
+}
+
+.storelist-card {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10%;
+    color: #fff;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table thead th {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.btn-info {
+    background-color: #00bfff;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #009acc;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffffff22;
+}
