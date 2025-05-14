@@ -33,8 +33,14 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public Product findById(int productId) {
+        return productRepository.findById(productId).orElse(null);
+    }
+
     public List<Product> findByStoreId(int storeId) {
-        return productRepository.findByStoreId(storeId);
+        return productRepository.findAll().stream()
+                .filter(p -> p.getStore() != null && p.getStore().getId() == storeId)
+                .toList();
     }
 
 
@@ -42,8 +48,8 @@ public class ProductService {
         // 1. Доставна цена
         BigDecimal deliveryPrice = BigDecimal.valueOf(product.getDeliveryPrice());
 
-        // 2. Надценка: 10% от доставната цена
-        BigDecimal markup = deliveryPrice.multiply(BigDecimal.valueOf(0.10));
+        // 2. Надценка: 20% от доставната цена
+        BigDecimal markup = deliveryPrice.multiply(BigDecimal.valueOf(0.20));
 
         // 3. Цена с надценка
         BigDecimal priceWithMarkup = deliveryPrice.add(markup);
