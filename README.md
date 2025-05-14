@@ -33,7 +33,7 @@ The system supports expiry-aware pricing, real-time inventory updates, cashier w
 
 <br>
 
-## 🛠 Tech Stack <a name="tech-stack"></a>
+## ⚙️ Tech Stack <a name="tech-stack"></a>
 
 <p align="center">
   <a href="https://www.jetbrains.com/idea/"><img src="https://img.icons8.com/color/96/intellij-idea.png" alt="IntelliJ Idea" width="60px"/></a>
@@ -46,6 +46,13 @@ The system supports expiry-aware pricing, real-time inventory updates, cashier w
   <a href="https://docs.microsoft.com/sql/ssms/"><img src="https://img.icons8.com/color/96/microsoft-sql-server.png" alt="SQL Server" width="60px"/></a>
   <a href="https://junit.org/junit5/"><img src="https://junit.org/junit5/assets/img/junit5-logo.png" alt="JUnit 5" width="55px"/></a>
 </p>
+
+<br>
+
+## 📷 Project Demo
+
+
+![project_demo](https://github.com/user-attachments/assets/2ec4efd7-008d-4164-b571-42a6c5d6f9a1)
 
 <br>
 
