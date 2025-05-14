@@ -14,13 +14,14 @@ public class Receipt {
 
     private LocalDateTime receiptIssueDate;
 
+    @Column(nullable = false)
+    private double totalAmount;
+
     @ManyToOne
     private Cashier cashier;
 
     @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL)
     private List<SoldProduct> totalSoldProducts = new ArrayList<>();
-
-    private double totalPrice;
 
     public int getId() {
         return id;
@@ -54,7 +55,15 @@ public class Receipt {
         this.cashier = cashier;
     }
 
-    public double getTotalPrice() {
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public double calculateTotalPrice() {
         return totalSoldProducts.stream()
                 .mapToDouble(p -> p.getSellingPrice() * p.getQuantity())
                 .sum();

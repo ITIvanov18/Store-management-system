@@ -243,10 +243,4 @@ public class PurchaseController {
             return "redirect:/purchase/start";
         }
     }
-
-    // Финална страница след успешно плащане
-    @GetMapping("/success")
-    public String successPage() {
-        return "purchase-success";
-    }
 }
