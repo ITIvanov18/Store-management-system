@@ -2,10 +2,7 @@ package org.nbu.controller;
 
 import jakarta.validation.Valid;
 import org.nbu.data.*;
-import org.nbu.service.CashierService;
-import org.nbu.service.ProductService;
-import org.nbu.service.ReceiptService;
-import org.nbu.service.StoreService;
+import org.nbu.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,14 +18,17 @@ public class StoreController {
     private final StoreService storeService;
     private final ProductService productService;
     private final CashierService cashierService;
+    private final CashRegisterService cashRegisterService;
     private final ReceiptService receiptService;
 
     public StoreController(StoreService storeService,
                            ProductService productService,
                            CashierService cashierService,
+                           CashRegisterService cashRegisterService,
                            ReceiptService receiptService) {
         this.storeService = storeService;
         this.productService = productService;
+        this.cashRegisterService = cashRegisterService;
         this.cashierService = cashierService;
         this.receiptService = receiptService;
     }
@@ -53,9 +53,10 @@ public class StoreController {
 
         List<CashRegister> registers = new ArrayList<>();
         for (int i = 0; i < registerCount; i++) {
-            registers.add(new CashRegister());
+            CashRegister register = new CashRegister();
+            register.setStore(store);
+            registers.add(register);
         }
-
         store.setCashRegisters(registers);
         storeService.save(store);
         return "redirect:/store/list";
@@ -68,7 +69,7 @@ public class StoreController {
         return "store-list";
     }
 
-    // Главна витрина на магазина
+    // Подробности за магазин, включително списък с каси и касиери
     @GetMapping("/{id}")
     public String showStore(@PathVariable int id,
                             Model model,
@@ -90,13 +91,14 @@ public class StoreController {
         model.addAttribute("availableCashiers", availableCashiers);
         model.addAttribute("product", new Product());
         model.addAttribute("cashier", new Cashier());
+        model.addAttribute("cashRegisters", cashRegisterService.findByStoreId(id));
         model.addAttribute("categories", ProductCategoryEnum.values());
 
         if (errorMessage != null && !errorMessage.isEmpty()) {
             model.addAttribute("error", errorMessage);
         }
 
-        return "store";
+        return "store-details";
     }
 
     // Статистика за конкретен магазин
