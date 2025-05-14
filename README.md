@@ -25,10 +25,11 @@
 
 ## 💻 Description <a name="description"></a>
 
-<p align = "center">A Java-based web application for modeling and automating the loading and sale of goods in a retail store. <br>
-Powered by Spring Boot and Thymeleaf on the frontend; backed by a MSSQL Server database with <br>
+<p align = "center">A Java-based web application for managing the inventory and sales flow of a retail store. <br>
+Build with Spring Boot and Thymeleaf; backed by a Microsoft SQL Server database via <br>
 Spring Data JPA (Hibernate & Jakarta EE) for seamless object-relational mapping, and Gradle for build and testing.<br>
-The app handles inventory, expiry-aware pricing, cashier workflows, receipt serialization, and store statistics. </p>
+The system supports expiry-aware pricing, real-time inventory updates, cashier workflows, receipt generation, and store statistics.
+</p>
 
 <br>
 
@@ -38,9 +39,9 @@ The app handles inventory, expiry-aware pricing, cashier workflows, receipt seri
   <a href="https://www.jetbrains.com/idea/"><img src="https://img.icons8.com/color/96/intellij-idea.png" alt="IntelliJ Idea" width="60px"/></a>
   <a href="https://www.oracle.com/java/"><img src="https://img.icons8.com/color/96/java-coffee-cup-logo--v1.png" alt="Java 17" width="64px"/></a>
   <a href="https://spring.io/projects/spring-boot"><img src="https://img.icons8.com/color/96/spring-logo.png" alt="Spring Boot 3" width="55px"/></a> &nbsp
-  <a href="https://jakarta.ee/"><img src="https://downloads.marketplace.jetbrains.com/files/20207/724021/icon/default.svg" alt="Jakarta EE" width="55px"/></a> &nbsp
   <a href="https://hibernate.org/"><img src="https://icon.icepanel.io/Technology/svg/Hibernate.svg" alt="Hibernate / JPA" width="53px"/></a> &nbsp
   <a href="https://www.thymeleaf.org/"><img src="https://www.thymeleaf.org/images/thymeleaf.png" alt="Thymeleaf" width="55px"/></a> &nbsp
+  <a href="https://getbootstrap.com/"><img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="Bootstrap 5" width="67px"/></a> &nbsp
   <a href="https://gradle.org/"><img src="https://icon.icepanel.io/Technology/svg/Gradle.svg" alt="Gradle" width="64px"/></a>
   <a href="https://docs.microsoft.com/sql/ssms/"><img src="https://img.icons8.com/color/96/microsoft-sql-server.png" alt="SQL Server" width="60px"/></a>
   <a href="https://junit.org/junit5/"><img src="https://junit.org/junit5/assets/img/junit5-logo.png" alt="JUnit 5" width="55px"/></a>
