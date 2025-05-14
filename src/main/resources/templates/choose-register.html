@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Избор на каса</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/choose-register.css}">
+    <script th:src="@{/js/choose-register.js}" defer></script>
+</head>
+<body class="bg-dark text-white">
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Изберете каса</h2>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-3 text-center" th:each="register : ${registers}">
+            <div class="register-icon rounded p-3"
+                 th:classappend="${register.cashier != null} ? 'border border-success shadow' : 'border border-danger shadow'">
+
+                <!-- Каса и статус -->
+                <i class="fas fa-cash-register fa-3x mb-2"
+                   th:classappend="${register.cashier != null} ? 'text-success' : 'text-danger'"></i>
+                <p class="fw-bold" th:text="'Каса #' + ${register.id}"></p>
+
+                <!-- Формуляр само за отворени каси -->
+                <form th:if="${register.cashier != null}"
+                      th:action="@{/purchase/store/{storeId}/proceed(storeId=${store.id})}"
+                      th:id="'form-' + ${register.id}"
+                      method="post">
+                    <input type="hidden" name="cashRegisterId" th:value="${register.id}" />
+                    <button type="button" class="btn btn-success btn-register"
+                            th:attr="onclick=|submitForm(${register.id})|">Избери</button>
+                </form>
+
+                <!-- Бутон за затворена каса -->
+                <button type="button"
+                        th:if="${register.cashier == null}"
+                        class="btn btn-danger btn-register"
+                        onclick="alertClosedCashRegister()">
+                    Затворена
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="/" class="btn btn-outline-light">⬅ Обратно към начална страница</a>
+    </div>
+</div>
+
+</body>
+</html>

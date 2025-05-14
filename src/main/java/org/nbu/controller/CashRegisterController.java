@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/cashRegister")
+@RequestMapping("/cash-register")
 public class CashRegisterController {
 
     private final CashRegisterService registerService;
@@ -25,10 +25,8 @@ public class CashRegisterController {
     public String assignCashier(@PathVariable int id, @RequestParam int cashierId) {
         CashRegister register = registerService.findById(id);
         Cashier cashier = cashierService.findById(cashierId);
-
         register.setCashier(cashier);
         registerService.save(register);
-
         return "redirect:/store/" + register.getStore().getId();
     }
 
