@@ -13,7 +13,10 @@ import java.util.*;
 public class ReceiptService {
 
     private final ReceiptRepo receiptRepository;
-
+    private boolean skipFileWriting = false;
+    public void setSkipFileWriting(boolean skip) {
+        this.skipFileWriting = skip;
+    }
     public ReceiptService(ReceiptRepo receiptRepository) {
         this.receiptRepository = receiptRepository;
     }
@@ -90,8 +93,9 @@ public class ReceiptService {
         receipt.setTotalAmount(totalAmount);
         receipt.setTotalSoldProducts(sold);
 
-        ReceiptFileWriter.writeReceiptToFile(receipt, products, prices);
-
+        if (!skipFileWriting) {
+            ReceiptFileWriter.writeReceiptToFile(receipt, products, prices);
+        }
         return receipt;
     }
 

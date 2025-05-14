@@ -10,6 +10,7 @@ body {
     background: #ffffffdd;
     border-radius: 30px;
     padding: 40px;
+    margin-bottom: 10%;
     max-width: 900px;
     width: 100%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -30,4 +31,33 @@ body {
     font-size: 1.3rem;
     font-weight: bold;
     color: #222;
+}
+
+.back-button-wrapper {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 60%;
+    transform: translateY(20px);
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border-color: #eee;
 }
